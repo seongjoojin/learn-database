@@ -47,6 +47,7 @@
 
 docker 이용하기
 
+- https://hub.docker.com/_/mysql/
 - https://hub.docker.com/_/mysql?tab=tags
 
 ```bash
@@ -69,3 +70,9 @@ $ docker exec -it [컨테이너 아이디] /bin/bash
 # 접속 후 mysql 접속
 $ mysql
 ```
+
+### MySQL의 구조
+
+- 표(table) : 데이터를 기록하는 최종적인 곳
+- 데이터베이스(database) : 표들을 그룹핑 한 것, 스키마(Schema) : 서로 연관된 데이터들를 그룹핑 해줌
+- 데이터베이스 서버(database server)
