@@ -38,3 +38,34 @@
 
 - 관계형 데이터베이스는 스프레이드시트처럼 데이터를 표형태로 표현해줌
 - 데이터베이스는 컴퓨터 언어를 통해서 제어할 수 있음
+
+### MySQL 설치
+
+각자의 운영체제에서 설치하기
+
+- https://dev.mysql.com/downloads/mysql/
+
+docker 이용하기
+
+- https://hub.docker.com/_/mysql?tab=tags
+
+```bash
+# docekr mysql 5.7.28 이미지 설치
+$ docker pull mysql:5.7.28
+
+# mysql 이미지 실행
+$ docker run -d -p 3306:3306 \
+  -e MYSQL_ALLOW_EMPTY_PASSWORD=true \
+  --name mysql \
+  mysql:5.7.28
+# 위의 예제는 비밀번호 없이 접속할 수 있도록 해준 것이고 비밀번호를 지정하고 싶으시면 MYSQL_ROOT_PASSWORD 의 옵션에 넣어주시면 됩니다.
+
+# docker 컨테이너 아이디 확인
+$ docker ps
+
+# docker 컨테이너 접속
+$ docker exec -it [컨테이너 아이디] /bin/bash
+
+# 접속 후 mysql 접속
+$ mysql
+```
