@@ -88,3 +88,36 @@ $ mysql
 # root로 접속(비밀번호 입력)
 $ mysql -uroot -p
 ```
+
+### MySQL 스키마(schema)의 사용
+
+"mysql create database"로 검색
+
+https://dev.mysql.com/doc/refman/5.7/en/creating-database.html
+
+```bash
+# 데이터베이스 생성
+$ CREATE DATABASE [데이터베이스 이름];
+```
+
+"mysql delete database"로 검색
+
+https://dev.mysql.com/doc/refman/5.7/en/drop-database.html
+
+```bash
+# 데이터베이스 삭제
+$ DROP DATABASE [데이터베이스 이름];
+```
+
+- 명령어를 외우는게 아니라 검색하는 방법이 나음
+- 예) 데이터베이스 내용을 보고 싶을 때 "how to show database in mysql"로 검색
+
+https://dev.mysql.com/doc/refman/5.7/en/show-databases.html
+
+```bash
+# 데이터베이스 조회
+$ SHOW DATABASES;
+
+# 데이터베이스 사용
+$ USE [데이터베이스 이름];
+```
