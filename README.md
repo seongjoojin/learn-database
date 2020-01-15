@@ -121,3 +121,9 @@ $ SHOW DATABASES;
 # 데이터베이스 사용
 $ USE [데이터베이스 이름];
 ```
+
+
+### SQL과 테이블의 구조
+
+- SQL(Structured Query Language) : 쉽고 중요함.(수많은 관계형 데이터베이스들의 표준화된 언어)
+- table(표) : 행(row,record)와 열(column)으로 이루어져 있음.
