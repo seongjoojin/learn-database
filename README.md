@@ -122,8 +122,33 @@ $ SHOW DATABASES;
 $ USE [데이터베이스 이름];
 ```
 
-
 ### SQL과 테이블의 구조
 
 - SQL(Structured Query Language) : 쉽고 중요함.(수많은 관계형 데이터베이스들의 표준화된 언어)
 - table(표) : 행(row,record)와 열(column)으로 이루어져 있음.
+
+### MySQL 테이블의 생성
+
+https://devhints.io/mysql
+
+여러 언어에는 cheatsheet가 존재함.
+
+https://www.techonthenet.com/mysql/datatypes.php
+
+```sql
+CREATE TABLE topic (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  title VARCHAR(100) NOT NULL,
+  description TEXT,
+  created DATETIME NOT NULL,
+  author VARCHAR(30),
+  profile VARCHAR(100),
+  PRIMARY KEY(id)
+);
+```
+
+- AUTO_INCREMENT: 값이 1씩 자동으로 증가
+- NOT NULL : 값이 없는것을 허용하지 않음
+- NULL : 값이 없는 것을 허용함
+
+- PRIMARY KEY => 성능, 중복 방지
