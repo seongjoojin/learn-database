@@ -152,3 +152,12 @@ CREATE TABLE topic (
 - NULL : 값이 없는 것을 허용함
 
 - PRIMARY KEY => 성능, 중복 방지
+
+### MySQL의 CRUD
+
+- Create
+- Read
+- Update
+- Delete
+
+가장 핵심적인 기능은 Create, Read
