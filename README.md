@@ -161,3 +161,23 @@ CREATE TABLE topic (
 - Delete
 
 가장 핵심적인 기능은 Create, Read
+
+### SQL의 INSERT 구문
+
+테이블 구조 보기
+
+```sql
+DESC topic;
+```
+
+row 생성
+
+```sql
+INSERT INTO topic (title,description,created,author, profile) VALUES('MySQL','MySQL is ...',NOW(),'egoing','developer');
+```
+
+topic table에서 모든 데이터 조회
+
+```sql
+SELECT * FROM topic;
+```
