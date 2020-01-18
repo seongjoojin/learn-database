@@ -181,3 +181,80 @@ topic table에서 모든 데이터 조회
 ```sql
 SELECT * FROM topic;
 ```
+
+### SQL의 SELECT 구문
+
+topic table에서 모든 행 조회
+
+```sql
+SELECT * FROM topic;
+
++----+------------+------------------+---------------------+--------+--------------------------+
+| id | title      | description      | created             | author | profile                  |
++----+------------+------------------+---------------------+--------+--------------------------+
+|  1 | MySQL      | MySQL is ...     | 2020-01-17 13:06:24 | egoing | developer                |
+|  2 | ORACLE     | OCRACLE is...    | 2020-01-17 13:11:21 | egoing | developer                |
+|  3 | SQL Server | SQL Server is... | 2020-01-17 13:12:42 | duru   | database administrator   |
+|  4 | PostgreSQL | PostgreSQL is... | 2020-01-17 13:14:03 | taeho  | data scientist,developer |
+|  5 | MongoDB    | MongoDB is...    | 2020-01-17 13:14:42 | egoing | developer                |
++----+------------+------------------+---------------------+--------+--------------------------+
+```
+
+topic table에서 id,title,created,author행 조회
+
+```sql
+SELECT id,title,created,author FROM topic;
+
++----+------------+---------------------+--------+
+| id | title      | created             | author |
++----+------------+---------------------+--------+
+|  1 | MySQL      | 2020-01-17 13:06:24 | egoing |
+|  2 | ORACLE     | 2020-01-17 13:11:21 | egoing |
+|  3 | SQL Server | 2020-01-17 13:12:42 | duru   |
+|  4 | PostgreSQL | 2020-01-17 13:14:03 | taeho  |
+|  5 | MongoDB    | 2020-01-17 13:14:42 | egoing |
++----+------------+---------------------+--------+
+```
+
+https://dev.mysql.com/doc/refman/5.7/en/select.html
+
+topic table에서 id,title,created,author행에서 author가 egoing인 행을 조회
+
+```sql
+SELECT id,title,created,author FROM topic WHERE author='egoing';
+
++----+---------+---------------------+--------+
+| id | title   | created             | author |
++----+---------+---------------------+--------+
+|  1 | MySQL   | 2020-01-17 13:06:24 | egoing |
+|  2 | ORACLE  | 2020-01-17 13:11:21 | egoing |
+|  5 | MongoDB | 2020-01-17 13:14:42 | egoing |
++----+---------+---------------------+--------+
+```
+
+topic table에서 id,title,created,author행에서 author가 egoing인 행을 조회하고 id를 DESC로 정렬해서 조회
+
+```sql
+SELECT id,title,created,author FROM topic WHERE author='egoing' ORDER BY id DESC;
+
++----+---------+---------------------+--------+
+| id | title   | created             | author |
++----+---------+---------------------+--------+
+|  5 | MongoDB | 2020-01-17 13:14:42 | egoing |
+|  2 | ORACLE  | 2020-01-17 13:11:21 | egoing |
+|  1 | MySQL   | 2020-01-17 13:06:24 | egoing |
++----+---------+---------------------+--------+
+```
+
+topic table에서 id,title,created,author행에서 author가 egoing인 행을 조회하고 id를 DESC로 정렬하고 결과를 2개로 제한함
+
+```sql
+SELECT id,title,created,author FROM topic WHERE author='egoing' ORDER BY id DESC LIMIT 2;
+
++----+---------+---------------------+--------+
+| id | title   | created             | author |
++----+---------+---------------------+--------+
+|  5 | MongoDB | 2020-01-17 13:14:42 | egoing |
+|  2 | ORACLE  | 2020-01-17 13:11:21 | egoing |
++----+---------+---------------------+--------+
+```
