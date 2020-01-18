@@ -309,3 +309,38 @@ $ SELECT * FROM topic;
 ```
 
 UPDATE를 사용할 때 WHERE를 꼭 같이 사용해야함
+
+### SQL의 DELETE 구문
+
+https://dev.mysql.com/doc/refman/5.7/en/delete.html
+
+DELETE를 사용할 때 WHERE를 꼭 같이 사용해야함
+
+```sql
+$ SELECT * FROM topic;
+
++----+------------+------------------+---------------------+--------+--------------------------+
+| id | title      | description      | created             | author | profile                  |
++----+------------+------------------+---------------------+--------+--------------------------+
+|  1 | MySQL      | MySQL is ...     | 2020-01-17 13:06:24 | egoing | developer                |
+|  2 | Oracle     | Oracle is...     | 2020-01-17 13:11:21 | egoing | developer                |
+|  3 | SQL Server | SQL Server is... | 2020-01-17 13:12:42 | duru   | database administrator   |
+|  4 | PostgreSQL | PostgreSQL is... | 2020-01-17 13:14:03 | taeho  | data scientist,developer |
+|  5 | MongoDB    | MongoDB is...    | 2020-01-17 13:14:42 | egoing | developer                |
++----+------------+------------------+---------------------+--------+--------------------------+
+```
+
+```sql
+$ DELETE FROM topic WHERE id=5;
+
+$ SELECT * FROM topic;
+
++----+------------+------------------+---------------------+--------+--------------------------+
+| id | title      | description      | created             | author | profile                  |
++----+------------+------------------+---------------------+--------+--------------------------+
+|  1 | MySQL      | MySQL is ...     | 2020-01-17 13:06:24 | egoing | developer                |
+|  2 | Oracle     | Oracle is...     | 2020-01-17 13:11:21 | egoing | developer                |
+|  3 | SQL Server | SQL Server is... | 2020-01-17 13:12:42 | duru   | database administrator   |
+|  4 | PostgreSQL | PostgreSQL is... | 2020-01-17 13:14:03 | taeho  | data scientist,developer |
++----+------------+------------------+---------------------+--------+--------------------------+
+```
