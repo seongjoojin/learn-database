@@ -136,7 +136,7 @@ https://devhints.io/mysql
 https://www.techonthenet.com/mysql/datatypes.php
 
 ```sql
-CREATE TABLE topic (
+$ CREATE TABLE topic (
   id INT(11) NOT NULL AUTO_INCREMENT,
   title VARCHAR(100) NOT NULL,
   description TEXT,
@@ -167,19 +167,19 @@ CREATE TABLE topic (
 테이블 구조 보기
 
 ```sql
-DESC topic;
+$ DESC topic;
 ```
 
 row 생성
 
 ```sql
-INSERT INTO topic (title,description,created,author, profile) VALUES('MySQL','MySQL is ...',NOW(),'egoing','developer');
+$ INSERT INTO topic (title,description,created,author, profile) VALUES('MySQL','MySQL is ...',NOW(),'egoing','developer');
 ```
 
 topic table에서 모든 데이터 조회
 
 ```sql
-SELECT * FROM topic;
+$ SELECT * FROM topic;
 ```
 
 ### SQL의 SELECT 구문
@@ -187,7 +187,7 @@ SELECT * FROM topic;
 topic table에서 모든 행 조회
 
 ```sql
-SELECT * FROM topic;
+$ SELECT * FROM topic;
 
 +----+------------+------------------+---------------------+--------+--------------------------+
 | id | title      | description      | created             | author | profile                  |
@@ -203,7 +203,7 @@ SELECT * FROM topic;
 topic table에서 id,title,created,author행 조회
 
 ```sql
-SELECT id,title,created,author FROM topic;
+$ SELECT id,title,created,author FROM topic;
 
 +----+------------+---------------------+--------+
 | id | title      | created             | author |
@@ -221,7 +221,7 @@ https://dev.mysql.com/doc/refman/5.7/en/select.html
 topic table에서 id,title,created,author행에서 author가 egoing인 행을 조회
 
 ```sql
-SELECT id,title,created,author FROM topic WHERE author='egoing';
+$ SELECT id,title,created,author FROM topic WHERE author='egoing';
 
 +----+---------+---------------------+--------+
 | id | title   | created             | author |
@@ -235,7 +235,7 @@ SELECT id,title,created,author FROM topic WHERE author='egoing';
 topic table에서 id,title,created,author행에서 author가 egoing인 행을 조회하고 id를 DESC로 정렬해서 조회
 
 ```sql
-SELECT id,title,created,author FROM topic WHERE author='egoing' ORDER BY id DESC;
+$ SELECT id,title,created,author FROM topic WHERE author='egoing' ORDER BY id DESC;
 
 +----+---------+---------------------+--------+
 | id | title   | created             | author |
@@ -249,7 +249,7 @@ SELECT id,title,created,author FROM topic WHERE author='egoing' ORDER BY id DESC
 topic table에서 id,title,created,author행에서 author가 egoing인 행을 조회하고 id를 DESC로 정렬하고 결과를 2개로 제한함
 
 ```sql
-SELECT id,title,created,author FROM topic WHERE author='egoing' ORDER BY id DESC LIMIT 2;
+$ SELECT id,title,created,author FROM topic WHERE author='egoing' ORDER BY id DESC LIMIT 2;
 
 +----+---------+---------------------+--------+
 | id | title   | created             | author |
@@ -258,3 +258,54 @@ SELECT id,title,created,author FROM topic WHERE author='egoing' ORDER BY id DESC
 |  2 | ORACLE  | 2020-01-17 13:11:21 | egoing |
 +----+---------+---------------------+--------+
 ```
+
+### SQL의 UPDATE 구문
+
+https://dev.mysql.com/doc/refman/5.7/en/update.html
+
+```sql
+$ DESC topic;
+
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| title       | varchar(100) | NO   |     | NULL    |                |
+| description | text         | YES  |     | NULL    |                |
+| created     | datetime     | NO   |     | NULL    |                |
+| author      | varchar(30)  | YES  |     | NULL    |                |
+| profile     | varchar(100) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+```
+
+```sql
+$ SELECT * FROM topic;
+
++----+------------+------------------+---------------------+--------+--------------------------+
+| id | title      | description      | created             | author | profile                  |
++----+------------+------------------+---------------------+--------+--------------------------+
+|  1 | MySQL      | MySQL is ...     | 2020-01-17 13:06:24 | egoing | developer                |
+|  2 | ORACLE     | OCRACLE is...    | 2020-01-17 13:11:21 | egoing | developer                |
+|  3 | SQL Server | SQL Server is... | 2020-01-17 13:12:42 | duru   | database administrator   |
+|  4 | PostgreSQL | PostgreSQL is... | 2020-01-17 13:14:03 | taeho  | data scientist,developer |
+|  5 | MongoDB    | MongoDB is...    | 2020-01-17 13:14:42 | egoing | developer                |
++----+------------+------------------+---------------------+--------+--------------------------+
+```
+
+```sql
+$ UPDATE topic SET description='Oracle is...', title='Oracle' WHERE id=2;
+
+$ SELECT * FROM topic;
+
++----+------------+------------------+---------------------+--------+--------------------------+
+| id | title      | description      | created             | author | profile                  |
++----+------------+------------------+---------------------+--------+--------------------------+
+|  1 | MySQL      | MySQL is ...     | 2020-01-17 13:06:24 | egoing | developer                |
+|  2 | Oracle     | Oracle is...     | 2020-01-17 13:11:21 | egoing | developer                |
+|  3 | SQL Server | SQL Server is... | 2020-01-17 13:12:42 | duru   | database administrator   |
+|  4 | PostgreSQL | PostgreSQL is... | 2020-01-17 13:14:03 | taeho  | data scientist,developer |
+|  5 | MongoDB    | MongoDB is...    | 2020-01-17 13:14:42 | egoing | developer                |
++----+------------+------------------+---------------------+--------+--------------------------+
+```
+
+UPDATE를 사용할 때 WHERE를 꼭 같이 사용해야함
