@@ -355,3 +355,85 @@ $ SELECT * FROM topic;
 - 데이터가 중복된다는 것은 퍼포먼스와 유지보수의 측면에서 개선이 필요함
 - Trade-off : 하나의 데이터베이스는 직관적으로 데이터를 볼 수 있지만, 관계형에선 새로운 데이터베이스를 참조하여 확인해야하는 불편함이 있음
 - MySQL을 통해서, 중복을 피해 데이터를 저장하면서도 한 눈에 데이터를 볼 수 있게 됨
+
+### 테이블 분리하기
+
+topic 테이블 생성
+
+```sql
+$ CREATE TABLE `topic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(30) NOT NULL,
+  `description` text,
+  `created` datetime NOT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+$ DESC topic;
+
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id          | int(11)     | NO   | PRI | NULL    | auto_increment |
+| title       | varchar(30) | NO   |     | NULL    |                |
+| description | text        | YES  |     | NULL    |                |
+| created     | datetime    | NO   |     | NULL    |                |
+| author_id   | int(11)     | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+```
+
+```sql
+$ CREATE TABLE `author` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `profile` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+$ DESC author;
+
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| id      | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(20)  | NO   |     | NULL    |                |
+| profile | varchar(200) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+```
+
+```sql
+$ INSERT INTO `author` VALUES (1,'egoing','developer');
+$ INSERT INTO `author` VALUES (2,'duru','database administrator');
+$ INSERT INTO `author` VALUES (3,'taeho','data scientist, developer');
+
+$ SELECT * FROM author;
+
++----+--------+---------------------------+
+| id | name   | profile                   |
++----+--------+---------------------------+
+|  1 | egoing | developer                 |
+|  2 | duru   | database administrator    |
+|  3 | taeho  | data scientist, developer |
++----+--------+---------------------------+
+```
+
+```sql
+$ INSERT INTO `topic` VALUES (1,'MySQL','MySQL is...','2018-01-01 12:10:11',1);
+$ INSERT INTO `topic` VALUES (2,'Oracle','Oracle is ...','2018-01-03 13:01:10',1);
+$ INSERT INTO `topic` VALUES (3,'SQL Server','SQL Server is ...','2018-01-20 11:01:10',2);
+$ INSERT INTO `topic` VALUES (4,'PostgreSQL','PostgreSQL is ...','2018-01-23 01:03:03',3);
+$ INSERT INTO `topic` VALUES (5,'MongoDB','MongoDB is ...','2018-01-30 12:31:03',1);
+
+$ SELECT * FROM topic;
+
++----+------------+-------------------+---------------------+-----------+
+| id | title      | description       | created             | author_id |
++----+------------+-------------------+---------------------+-----------+
+|  1 | MySQL      | MySQL is...       | 2018-01-01 12:10:11 |         1 |
+|  2 | Oracle     | Oracle is ...     | 2018-01-03 13:01:10 |         1 |
+|  3 | SQL Server | SQL Server is ... | 2018-01-20 11:01:10 |         2 |
+|  4 | PostgreSQL | PostgreSQL is ... | 2018-01-23 01:03:03 |         3 |
+|  5 | MongoDB    | MongoDB is ...    | 2018-01-30 12:31:03 |         1 |
++----+------------+-------------------+---------------------+-----------+
+```
