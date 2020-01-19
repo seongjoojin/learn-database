@@ -344,3 +344,8 @@ $ SELECT * FROM topic;
 |  4 | PostgreSQL | PostgreSQL is... | 2020-01-17 13:14:03 | taeho  | data scientist,developer |
 +----+------------+------------------+---------------------+--------+--------------------------+
 ```
+
+### 수업의 정상
+
+- 본질과 혁신을 분리
+- Database(본질), Relational(혁신)
