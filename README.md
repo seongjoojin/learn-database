@@ -521,3 +521,9 @@ $ SELECT topic.id AS topic_id,title,description,created,name,profile FROM topic 
 - 단점 : 명령어를 기억해야함
 
 https://www.quora.com/What-is-the-best-MySQL-client-for-Mac-OS-X-or-Windows
+
+### MySQL Workbench
+
+https://www.mysql.com/products/workbench/
+
+https://dev.mysql.com/downloads/workbench/
