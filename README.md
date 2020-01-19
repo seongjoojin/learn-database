@@ -437,3 +437,60 @@ $ SELECT * FROM topic;
 |  5 | MongoDB    | MongoDB is ...    | 2018-01-30 12:31:03 |         1 |
 +----+------------+-------------------+---------------------+-----------+
 ```
+
+### 관계형 데이터베이스의 꽃 JOIN
+
+```sql
+$ SELECT * FROM topic;
+
++----+------------+-------------------+---------------------+-----------+
+| id | title      | description       | created             | author_id |
++----+------------+-------------------+---------------------+-----------+
+|  1 | MySQL      | MySQL is...       | 2018-01-01 12:10:11 |         1 |
+|  2 | Oracle     | Oracle is ...     | 2018-01-03 13:01:10 |         1 |
+|  3 | SQL Server | SQL Server is ... | 2018-01-20 11:01:10 |         2 |
+|  4 | PostgreSQL | PostgreSQL is ... | 2018-01-23 01:03:03 |         3 |
+|  5 | MongoDB    | MongoDB is ...    | 2018-01-30 12:31:03 |         1 |
++----+------------+-------------------+---------------------+-----------+
+```
+
+```sql
+$ SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.id;
++----+------------+-------------------+---------------------+-----------+------+--------+---------------------------+
+| id | title      | description       | created             | author_id | id   | name   | profile                   |
++----+------------+-------------------+---------------------+-----------+------+--------+---------------------------+
+|  1 | MySQL      | MySQL is...       | 2018-01-01 12:10:11 |         1 |    1 | egoing | developer                 |
+|  2 | Oracle     | Oracle is ...     | 2018-01-03 13:01:10 |         1 |    1 | egoing | developer                 |
+|  5 | MongoDB    | MongoDB is ...    | 2018-01-30 12:31:03 |         1 |    1 | egoing | developer                 |
+|  3 | SQL Server | SQL Server is ... | 2018-01-20 11:01:10 |         2 |    2 | duru   | database administrator    |
+|  4 | PostgreSQL | PostgreSQL is ... | 2018-01-23 01:03:03 |         3 |    3 | taeho  | data scientist, developer |
++----+------------+-------------------+---------------------+-----------+------+--------+---------------------------+
+```
+
+```sql
+$ SELECT topic.id,title,description,created,name,profile FROM topic LEFT JOIN author ON topic.author_id = author.id;
+
++----+------------+-------------------+---------------------+--------+---------------------------+
+| id | title      | description       | created             | name   | profile                   |
++----+------------+-------------------+---------------------+--------+---------------------------+
+|  1 | MySQL      | MySQL is...       | 2018-01-01 12:10:11 | egoing | developer                 |
+|  2 | Oracle     | Oracle is ...     | 2018-01-03 13:01:10 | egoing | developer                 |
+|  5 | MongoDB    | MongoDB is ...    | 2018-01-30 12:31:03 | egoing | developer                 |
+|  3 | SQL Server | SQL Server is ... | 2018-01-20 11:01:10 | duru   | database administrator    |
+|  4 | PostgreSQL | PostgreSQL is ... | 2018-01-23 01:03:03 | taeho  | data scientist, developer |
++----+------------+-------------------+---------------------+--------+---------------------------+
+```
+
+```sql
+$ SELECT topic.id AS topic_id,title,description,created,name,profile FROM topic LEFT JOIN author ON topic.author_id = author.id;
+
++----------+------------+-------------------+---------------------+--------+---------------------------+
+| topic_id | title      | description       | created             | name   | profile                   |
++----------+------------+-------------------+---------------------+--------+---------------------------+
+|        1 | MySQL      | MySQL is...       | 2018-01-01 12:10:11 | egoing | developer                 |
+|        2 | Oracle     | Oracle is ...     | 2018-01-03 13:01:10 | egoing | developer                 |
+|        5 | MongoDB    | MongoDB is ...    | 2018-01-30 12:31:03 | egoing | developer                 |
+|        3 | SQL Server | SQL Server is ... | 2018-01-20 11:01:10 | duru   | database administrator    |
+|        4 | PostgreSQL | PostgreSQL is ... | 2018-01-23 01:03:03 | taeho  | data scientist, developer |
++----------+------------+-------------------+---------------------+--------+---------------------------+
+```
