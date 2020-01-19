@@ -511,3 +511,13 @@ $ SELECT topic.id AS topic_id,title,description,created,name,profile FROM topic 
 - MySQL monitor(cli), workbench(gui) => database client
 
 목표는 이해가 아니라 익숙해지는 것
+
+### MySQL 클라이언트
+
+**MySQL monitor**
+
+- 명령어 기반
+- 장점 : 서버설치시 함께 설치됨.
+- 단점 : 명령어를 기억해야함
+
+https://www.quora.com/What-is-the-best-MySQL-client-for-Mac-OS-X-or-Windows
