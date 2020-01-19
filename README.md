@@ -527,3 +527,12 @@ https://www.quora.com/What-is-the-best-MySQL-client-for-Mac-OS-X-or-Windows
 https://www.mysql.com/products/workbench/
 
 https://dev.mysql.com/downloads/workbench/
+
+### 수업을 마치며
+
+- SQL
+- index (색인)
+- modeling
+- backup (mysqldump, binary log, ...)
+- cloud (AWS RDS, Google Cloud SQL for MySQL, AZURE Database for MySQL, ...)
+- programming (python mysql api, PHP mysql api, Java mysql api, ...)
