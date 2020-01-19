@@ -536,3 +536,12 @@ https://dev.mysql.com/downloads/workbench/
 - backup (mysqldump, binary log, ...)
 - cloud (AWS RDS, Google Cloud SQL for MySQL, AZURE Database for MySQL, ...)
 - programming (python mysql api, PHP mysql api, Java mysql api, ...)
+
+## SQL Join
+
+### 표 쪼개기
+
+https://docs.google.com/spreadsheets/d/1OUHAnTPdx0ga8P1_HBm6WUuWs02tvV-31mgi__XmRbc/edit?usp=sharing
+
+- 중복이 보이면 표를 쪼갠다.
+- 모든 표는 하나의 테마(주제)만 가져야함
