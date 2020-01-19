@@ -494,3 +494,20 @@ $ SELECT topic.id AS topic_id,title,description,created,name,profile FROM topic 
 |        4 | PostgreSQL | PostgreSQL is ... | 2018-01-23 01:03:03 | taeho  | data scientist, developer |
 +----------+------------+-------------------+---------------------+--------+---------------------------+
 ```
+
+### 인터넷과 데이터베이스
+
+**Internet**
+
+- 각자 흩어져있는 컴퓨터들이 인터넷으로 연결되면서 컴퓨터들간의 사회가 형성됨
+- 한대의 컴퓨터는 다른 컴퓨터에 요청하고 다른 한대의 컴퓨터는 요청에 응답함
+- 정보를 요청하는 쪽과 응답하는 쪽이 나눠지게됨
+
+- client(요청), server(응답)
+- web => web client, web server
+- game => game client, game server
+
+- database client, database server
+- MySQL monitor(cli), workbench(gui) => database client
+
+목표는 이해가 아니라 익숙해지는 것
