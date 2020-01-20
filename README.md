@@ -545,3 +545,42 @@ https://docs.google.com/spreadsheets/d/1OUHAnTPdx0ga8P1_HBm6WUuWs02tvV-31mgi__Xm
 
 - 중복이 보이면 표를 쪼갠다.
 - 모든 표는 하나의 테마(주제)만 가져야함
+
+### 실습준비
+
+https://sql-joins.leopard.in.ua
+
+- 그림에 더 집중
+
+https://github.com/egoing/sql-join
+
+```sql
+DROP TABLE IF EXISTS `author`;
+CREATE TABLE `author` (
+  `aid` int(11) NOT NULL,
+  `name` varchar(10) DEFAULT NULL,
+  `city` varchar(10) DEFAULT NULL,
+  `profile_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`aid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `author` VALUES (1,'egoing','seoul',1),(2,'leezche','jeju',2),(3,'blackdew','namhae',3);
+
+DROP TABLE IF EXISTS `profile`;
+CREATE TABLE `profile` (
+  `pid` int(11) NOT NULL,
+  `title` varchar(10) DEFAULT NULL,
+  `description` tinytext,
+  PRIMARY KEY (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `profile` VALUES (1,'developer','developer is ...'),(2,'designer','designer is ..'),(3,'DBA','DBA is ...');
+
+DROP TABLE IF EXISTS `topic`;
+CREATE TABLE `topic` (
+  `tid` int(11) NOT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `description` tinytext,
+  `author_id` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`tid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `topic` VALUES (1,'HTML','HTML is ...','1'),(2,'CSS','CSS is ...','2'),(3,'JavaScript','JavaScript is ..','1'),(4,'Database','Database is ...',NULL);
+```
