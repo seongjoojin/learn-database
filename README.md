@@ -721,3 +721,20 @@ $ SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid WHERE aut
 ```
 
 LEFT, INNER JOIN을 확실하게 익히면 됨.
+
+#### SQL JOIN 수업을 마치며
+
+- 성능 => 데이터베이스 제품군 마다 접근법이 다름
+- JOIN이 성능적으로 의심될때는 explain을 앞에 붙여서 실행해서 병목현상이 일어나는 곳이 없는지 체크
+
+```sql
+$ explain SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid;
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+----------------------------------------------------+
+| id | select_type | table  | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra                                              |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+----------------------------------------------------+
+|  1 | SIMPLE      | topic  | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    4 |   100.00 | NULL                                               |
+|  1 | SIMPLE      | author | NULL       | ALL  | PRIMARY       | NULL | NULL    | NULL |    3 |   100.00 | Using where; Using join buffer (Block Nested Loop) |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+----------------------------------------------------+
+```
+
+- 분해 => 데이터베이스 모델링, 정규화 (normalization)
