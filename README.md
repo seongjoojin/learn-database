@@ -584,3 +584,76 @@ CREATE TABLE `topic` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `topic` VALUES (1,'HTML','HTML is ...','1'),(2,'CSS','CSS is ...','2'),(3,'JavaScript','JavaScript is ..','1'),(4,'Database','Database is ...',NULL);
 ```
+
+#### LEFT JOIN
+
+- left join : 기준이 되는 표를 왼쪽에 두고 이 표를 기준으로 오른쪽의 표를 합성해서 하나의 표를 만드는 방법
+
+```sql
+$ SELECT * FROM topic;
++-----+------------+------------------+-----------+
+| tid | title      | description      | author_id |
++-----+------------+------------------+-----------+
+|   1 | HTML       | HTML is ...      | 1         |
+|   2 | CSS        | CSS is ...       | 2         |
+|   3 | JavaScript | JavaScript is .. | 1         |
+|   4 | Database   | Database is ...  | NULL      |
++-----+------------+------------------+-----------+
+```
+
+```sql
+$ SELECT * FROM author;
++-----+----------+--------+------------+
+| aid | name     | city   | profile_id |
++-----+----------+--------+------------+
+|   1 | egoing   | seoul  |          1 |
+|   2 | leezche  | jeju   |          2 |
+|   3 | blackdew | namhae |          3 |
++-----+----------+--------+------------+
+```
+
+```sql
+$ SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid;
++-----+------------+------------------+-----------+------+---------+-------+------------+
+| tid | title      | description      | author_id | aid  | name    | city  | profile_id |
++-----+------------+------------------+-----------+------+---------+-------+------------+
+|   1 | HTML       | HTML is ...      | 1         |    1 | egoing  | seoul |          1 |
+|   3 | JavaScript | JavaScript is .. | 1         |    1 | egoing  | seoul |          1 |
+|   2 | CSS        | CSS is ...       | 2         |    2 | leezche | jeju  |          2 |
+|   4 | Database   | Database is ...  | NULL      | NULL | NULL    | NULL  |       NULL |
++-----+------------+------------------+-----------+------+---------+-------+------------+
+```
+
+```sql
+$ SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid LEFT JOIN profile ON author.profile_id = profile.pid;
++-----+------------+------------------+-----------+------+---------+-------+------------+------+-----------+------------------+
+| tid | title      | description      | author_id | aid  | name    | city  | profile_id | pid  | title     | description      |
++-----+------------+------------------+-----------+------+---------+-------+------------+------+-----------+------------------+
+|   1 | HTML       | HTML is ...      | 1         |    1 | egoing  | seoul |          1 |    1 | developer | developer is ... |
+|   3 | JavaScript | JavaScript is .. | 1         |    1 | egoing  | seoul |          1 |    1 | developer | developer is ... |
+|   2 | CSS        | CSS is ...       | 2         |    2 | leezche | jeju  |          2 |    2 | designer  | designer is ..   |
+|   4 | Database   | Database is ...  | NULL      | NULL | NULL    | NULL  |       NULL | NULL | NULL      | NULL             |
++-----+------------+------------------+-----------+------+---------+-------+------------+------+-----------+------------------+
+```
+
+```sql
+$ SELECT tid, topic.title, author_id, name, profile.title AS job_title FROM topic LEFT JOIN author ON topic.author_id = author.aid LEFT JOIN profile ON author.profile_id = profile.pid;
++-----+------------+-----------+---------+-----------+
+| tid | title      | author_id | name    | job_title |
++-----+------------+-----------+---------+-----------+
+|   1 | HTML       | 1         | egoing  | developer |
+|   3 | JavaScript | 1         | egoing  | developer |
+|   2 | CSS        | 2         | leezche | designer  |
+|   4 | Database   | NULL      | NULL    | NULL      |
++-----+------------+-----------+---------+-----------+
+```
+
+```sql
+$ SELECT tid, topic.title, author_id, name, profile.title AS job_title FROM topic LEFT JOIN author ON topic.author_id = author.aid LEFT JOIN profile ON author.profile_id = profile.pid WHERE aid=1;
++-----+------------+-----------+--------+-----------+
+| tid | title      | author_id | name   | job_title |
++-----+------------+-----------+--------+-----------+
+|   1 | HTML       | 1         | egoing | developer |
+|   3 | JavaScript | 1         | egoing | developer |
++-----+------------+-----------+--------+-----------+
+```
