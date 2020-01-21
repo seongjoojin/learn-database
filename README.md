@@ -683,3 +683,26 @@ $ SELECT * from topic INNER JOIN author ON topic.author_id = author.aid;
 |   2 | CSS        | CSS is ...       | 2         |   2 | leezche | jeju  |          2 |   2 | designer  | designer is ..   |
 +-----+------------+------------------+-----------+-----+---------+-------+------------+-----+-----------+------------------+
 ```
+
+#### FULL JOIN
+
+- FULL JOIN : 왼쪽과 오른쪽에 있는 행 모두를 합성해서 하나의 표를 만드는 방법
+
+```sql
+$ SELECT * FROM topic FULL OUTER JOIN author ON topic.author_id = author.aid
+```
+
+MySQL은 FULL JOIN을 자체 지원하지 않으며 위의 sql문법은 아래와 같이 표현할 수도 있음.
+
+```sql
+$ (SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid) UNION (SELECT * FROM topic RIGHT JOIN author ON topic.author_id = author.aid);
++------+------------+------------------+-----------+------+----------+--------+------------+
+| tid  | title      | description      | author_id | aid  | name     | city   | profile_id |
++------+------------+------------------+-----------+------+----------+--------+------------+
+|    1 | HTML       | HTML is ...      | 1         |    1 | egoing   | seoul  |          1 |
+|    3 | JavaScript | JavaScript is .. | 1         |    1 | egoing   | seoul  |          1 |
+|    2 | CSS        | CSS is ...       | 2         |    2 | leezche  | jeju   |          2 |
+|    4 | Database   | Database is ...  | NULL      | NULL | NULL     | NULL   |       NULL |
+| NULL | NULL       | NULL             | NULL      |    3 | blackdew | namhae |          3 |
++------+------------+------------------+-----------+------+----------+--------+------------+
+```
