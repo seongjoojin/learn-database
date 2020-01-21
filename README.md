@@ -706,3 +706,18 @@ $ (SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid) UNION (
 | NULL | NULL       | NULL             | NULL      |    3 | blackdew | namhae |          3 |
 +------+------------+------------------+-----------+------+----------+--------+------------+
 ```
+
+#### EXCLUSIVE JOIN
+
+- 한쪽 표에만 있는 정보로 새로운 표를 만드는 방법
+
+```sql
+$ SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid WHERE author.aid is NULL;
++-----+----------+-----------------+-----------+------+------+------+------------+
+| tid | title    | description     | author_id | aid  | name | city | profile_id |
++-----+----------+-----------------+-----------+------+------+------+------------+
+|   4 | Database | Database is ... | NULL      | NULL | NULL | NULL |       NULL |
++-----+----------+-----------------+-----------+------+------+------+------------+
+```
+
+LEFT, INNER JOIN을 확실하게 익히면 됨.
