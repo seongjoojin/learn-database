@@ -587,7 +587,7 @@ INSERT INTO `topic` VALUES (1,'HTML','HTML is ...','1'),(2,'CSS','CSS is ...','2
 
 #### LEFT JOIN
 
-- left join : 기준이 되는 표를 왼쪽에 두고 이 표를 기준으로 오른쪽의 표를 합성해서 하나의 표를 만드는 방법
+- LEFT JOIN : 기준이 되는 표를 왼쪽에 두고 이 표를 기준으로 오른쪽의 표를 합성해서 하나의 표를 만드는 방법
 
 ```sql
 $ SELECT * FROM topic;
@@ -656,4 +656,30 @@ $ SELECT tid, topic.title, author_id, name, profile.title AS job_title FROM topi
 |   1 | HTML       | 1         | egoing | developer |
 |   3 | JavaScript | 1         | egoing | developer |
 +-----+------------+-----------+--------+-----------+
+```
+
+#### INNER JOIN
+
+- INNER JOIN : 왼쪽과 오른쪽 표 모두에서 존재하는 행을 모아서 하나의 행을 만드는 방법
+
+```sql
+$ SELECT * from topic INNER JOIN author ON topic.author_id = author.aid;
++-----+------------+------------------+-----------+-----+---------+-------+------------+
+| tid | title      | description      | author_id | aid | name    | city  | profile_id |
++-----+------------+------------------+-----------+-----+---------+-------+------------+
+|   1 | HTML       | HTML is ...      | 1         |   1 | egoing  | seoul |          1 |
+|   2 | CSS        | CSS is ...       | 2         |   2 | leezche | jeju  |          2 |
+|   3 | JavaScript | JavaScript is .. | 1         |   1 | egoing  | seoul |          1 |
++-----+------------+------------------+-----------+-----+---------+-------+------------+
+```
+
+```sql
+ $ SELECT * from topic INNER JOIN author ON topic.author_id = author.aid INNER JOIN profile ON profile.pid = author.profile_id;
++-----+------------+------------------+-----------+-----+---------+-------+------------+-----+-----------+------------------+
+| tid | title      | description      | author_id | aid | name    | city  | profile_id | pid | title     | description      |
++-----+------------+------------------+-----------+-----+---------+-------+------------+-----+-----------+------------------+
+|   1 | HTML       | HTML is ...      | 1         |   1 | egoing  | seoul |          1 |   1 | developer | developer is ... |
+|   3 | JavaScript | JavaScript is .. | 1         |   1 | egoing  | seoul |          1 |   1 | developer | developer is ... |
+|   2 | CSS        | CSS is ...       | 2         |   2 | leezche | jeju  |          2 |   2 | designer  | designer is ..   |
++-----+------------+------------------+-----------+-----+---------+-------+------------+-----+-----------+------------------+
 ```
