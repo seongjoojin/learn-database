@@ -51,14 +51,14 @@ docker 이용하기
 - https://hub.docker.com/_/mysql?tab=tags
 
 ```bash
-# docekr mysql 5.7.28 이미지 설치
-$ docker pull mysql:5.7.28
+# docekr mysql 5.7.29 이미지 설치
+$ docker pull mysql:5.7.29
 
 # mysql 이미지 실행
 $ docker run -d -p 3306:3306 \
   -e MYSQL_ALLOW_EMPTY_PASSWORD=true \
   --name mysql \
-  mysql:5.7.28
+  mysql:5.7.29
 # 위의 예제는 비밀번호 없이 접속할 수 있도록 해준 것이고 비밀번호를 지정하고 싶으시면 MYSQL_ROOT_PASSWORD 의 옵션에 넣어주시면 됩니다.
 
 # docker 컨테이너 아이디 확인
@@ -761,3 +761,35 @@ http://erd.yah.ac
 - 업무파악 할 때 많이 사용하는 방법 => UI를 같이 그려보는 것
 
 https://ovenapp.io/view/EuTjedDvHdhBQLoxthGrqvBlGp1jBJj6/XDCP1
+
+#### 개념적 데이터 모델링 1
+
+##### 개념적 데이터 모델링 소개
+
+- 필터 : 현실에서 개념을 추출
+- 언어 : 개념에 대해서 다른 사람과 대화하게 해줌
+
+- ERD (Entity Relationship Diagram) : 이러한 목적을 이루게 해주는 도구
+- ERD가 가져다 주는 것 : 정보(발견하고 표현), 그룹(연관된 정보를 그룹핑), 관계(그룹사이의 관계를 인식)
+
+##### 관계형 데이터베이스 다운 개념의 구조
+
+- 서로 연관된 정보를 묶어주는 큰 덩어리부터 끄집어 내야함(글, 저자, 댓글)
+- RDB에서는 내포관계를 허용하지 않음, 거대 단일 테이블로 표현하면 중복이 발생 => 주제(덩어리)를 표로 각각 나워야함
+- 표를 각각 나누는 장점 : 주제에 따라서 데이터를 그룹핑 할 수 있음, 컴퓨터의 자원을 아낄 수 있음(만약 저자에 대한 정보를 조회시에는 저자에 대한 테이블만 조회하면 됨), JOIN(필요한 정보를 JOIN을 통해서 조회가능함)
+
+##### ERD의 구성요소
+
+- Entity(찾아낸 개념들 => 글, 저자, 댓글 등) => Table로 전환됨
+- Attribute(구체적인 데이터 => 글 안의 생성일, 제목, 본문 등) => Column로 전환됨
+- Relation(개념들끼리의 관계) => PK, FK로 전환됨
+
+- Tuple은 Row로 전환됨
+
+##### 엔티티 정의
+
+- 어플리케이션이 건축물이라면 옥상은 UI(User Interface)고 지하는 Database임
+- UI과 Database는 서로 원인과 결과 관계로 연결되어 있음
+- 가장 먼저 할 일은 기획서에서 Entity를 찾아내는 것 => 쓰기 화면을 보면 대부분 Entity가 나타나게됨 (데이터베이스에 어울리지 않는다면 수정하면 됨)
+
+https://www.draw.io
