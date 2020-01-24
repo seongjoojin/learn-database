@@ -745,8 +745,6 @@ $ explain SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid;
 - 목표는 표에 정보를 담는 것
 - DATA MODELING => 복잡한 현실을 컴퓨터로 이사시키는 이삿짐 센터?!
 
-http://erd.yah.ac
-
 #### 데이터 모델링의 순서
 
 - 업무 파악 => 개념적 데이터 모델링 => 논리적 데이터 모델링 => 물리적 데이터 모델링
@@ -793,3 +791,53 @@ https://ovenapp.io/view/EuTjedDvHdhBQLoxthGrqvBlGp1jBJj6/XDCP1
 - 가장 먼저 할 일은 기획서에서 Entity를 찾아내는 것 => 쓰기 화면을 보면 대부분 Entity가 나타나게됨 (데이터베이스에 어울리지 않는다면 수정하면 됨)
 
 https://www.draw.io
+
+#### 개념적 데이터 모델링 2
+
+##### 속성 정의
+
+- 속성은 ERD에서 사각형으로 표현함
+
+![속성 정의.png](./관계형_데이터_모델링/속성_정의.png)
+
+##### 식별자 지정
+
+- 식별자가 될 수 있는 후보키(candidate key)를 고름
+- 후보키 중에 식별자를 고르면 그것이 기본키(primary key)가 됨
+- 후보키 중 기본키가 아닌 것은 대체키(alternate key)가 됨 => 성능 향상을 위해서 Secondary indexe라는 것을 걸기에 아주 좋은 후보
+
+- 중복키(composite key) : 하나의 키만으로 식별할 수 없고 두가지 이상의 키로 식별이 가능할 때 사용(직원번호, 부서번호 등)
+- 기본키(primary key)는 ERD에서 밑줄로 구분
+
+![식별자 정의.png](./관계형_데이터_모델링/식별자_지정.png)
+
+##### 엔티티간의 연결
+
+- ERD에서는 Relationship을 마름모로 나타냄
+
+![엔티티간의 연결.png](./관계형_데이터_모델링/엔티티간의_연결.png)
+
+##### Cardinality
+
+1. 1:1 관계
+2. 1:N(일대다) 관계
+3. N:M(다대다) 관계 => 중간에 연결테이블이 존재하여 최종적으로는 일대다관계로 컨버팅됨
+
+![Cardinality.png](./관계형_데이터_모델링/Cardinality.png)
+
+##### Optionality
+
+- 예) 저는 댓글을 작성하지 않을 수도 있다 => 저자에게 댓글은 Optionality (ERD에서는 동그라미로 표시)
+- Optionality의 반대로 꼭 필요한 속성은 Mandatory로 표현함 (ERD에서는 세로 작대기 하나로 표시)
+
+![Optionality.png](./관계형_데이터_모델링/Optionality.png)
+
+##### ERD 완성
+
+- ERD 기호 같은 경우는 속한 그룹마다 규칙이 다르므로 속한 그룹의 규칙을 따라가면 됨
+
+![ERD 완성.png](./관계형_데이터_모델링/ERD_완성.png)
+
+##### Entity Relationship Diagram Helper
+
+http://erd.yah.ac
