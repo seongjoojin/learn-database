@@ -877,3 +877,200 @@ https://github.com/vuerd
 ##### N:M 관계의 처리 - 내용 정정
 
 ![다대다_관계의_처리.png](./논리적_데이터_모델링/다대다_관계의_처리.png)
+
+#### 논리적 데이터 모델링 2 - 정규화
+
+##### 정규화 소개
+
+- Normalization : 정제되지 않은 데이터(표)를 관계형 데이터베이스에 어울리는 표로 만들어주는 레시피
+- https://en.wikipedia.org/wiki/Database_normalization
+- 3NF(https://en.wikipedia.org/wiki/Third_normal_form) => 산업적으로 주로 많이 사용됨
+- http://bit.ly/2wV2SFj
+
+##### 제1 정규화
+
+- First Normal Form (Atomic columns)
+- 각각의 컬럼의 값이 하나 이상이라면 (atomic) 해소 되어야 할 상태 => 해소하면 제1 정규화형을 만족시키는 테이블
+
+**Unnormalized form**
+
+topic table
+
+| title  | type   | description   | created | author_id | author_name | author_profile | price | tag             |
+| ------ | ------ | ------------- | ------- | --------- | ----------- | -------------- | ----- | --------------- |
+| MySQL  | paper  | MySQL is ...  | 2011    | 1         | kim         | developer      | 10000 | rdb, free       |
+| MySQL  | online | MySQL is ...  | 2011    | 1         | kim         | developer      | 0     | rdb, free       |
+| ORACLE | online | ORACLE is ... | 2012    | 1         | kim         | developer      | 0     | rdb, commercial |
+
+- Atomic columns => 표를 쪼개기
+
+**First normal form**
+
+topic table
+
+| title  | type   | description   | created | author_id | author_name | author_profile | price |
+| ------ | ------ | ------------- | ------- | --------- | ----------- | -------------- | ----- |
+| MySQL  | paper  | MySQL is ...  | 2011    | 1         | kim         | developer      | 10000 |
+| MySQL  | online | MySQL is ...  | 2011    | 1         | kim         | developer      | 0     |
+| ORACLE | online | ORACLE is ... | 2012    | 1         | kim         | developer      | 0     |
+
+topic_tag_relation table
+
+| topic_title | tag_id |
+| ----------- | ------ |
+| MySQL       | 1      |
+| MySQL       | 2      |
+| ORACLE      | 1      |
+| ORACLE      | 3      |
+
+tag table
+
+| id  | name       |
+| --- | ---------- |
+| 1   | rdb        |
+| 2   | free       |
+| 3   | commercial |
+
+##### 제2 정규화
+
+- Sencond Normal Form(No partial dependencies) => 부분 종속성 제거
+- 부분적으로 종속적인 컬럼을 모으고 전체적으로 종속적인 컬럼을 쪼개는 것
+
+**First normal form**
+
+topic table
+
+| title  | type   | description   | created | author_id | author_name | author_profile | price |
+| ------ | ------ | ------------- | ------- | --------- | ----------- | -------------- | ----- |
+| MySQL  | paper  | MySQL is ...  | 2011    | 1         | kim         | developer      | 10000 |
+| MySQL  | online | MySQL is ...  | 2011    | 1         | kim         | developer      | 0     |
+| ORACLE | online | ORACLE is ... | 2012    | 1         | kim         | developer      | 0     |
+
+topic_tag_relation table
+
+| topic_title | tag_id |
+| ----------- | ------ |
+| MySQL       | 1      |
+| MySQL       | 2      |
+| ORACLE      | 1      |
+| ORACLE      | 3      |
+
+tag table
+
+| id  | name       |
+| --- | ---------- |
+| 1   | rdb        |
+| 2   | free       |
+| 3   | commercial |
+
+**Second normal form**
+
+topic table
+
+| title  | description   | created | author_id | author_name | author_profile |
+| ------ | ------------- | ------- | --------- | ----------- | -------------- |
+| MySQL  | MySQL is ...  | 2011    | 1         | kim         | developer      |
+| ORACLE | ORACLE is ... | 2012    | 1         | kim         | developer      |
+
+topic_type table
+
+| title  | price |
+| ------ | ----- |
+| MySQL  | 10000 |
+| MySQL  | 0     |
+| ORACLE | 0     |
+
+topic_tag_relation table
+
+| topic_title | tag_id |
+| ----------- | ------ |
+| MySQL       | 1      |
+| MySQL       | 2      |
+| ORACLE      | 1      |
+| ORACLE      | 3      |
+
+tag table
+
+| id  | name       |
+| --- | ---------- |
+| 1   | rdb        |
+| 2   | free       |
+| 3   | commercial |
+
+##### 제3 정규화
+
+- Third Normal Form (No transitive dependencies) => 이행적 종속성을 가지고 있다면 그것을 분리해야함
+
+**Second normal form**
+
+topic table
+
+| title  | description   | created | author_id | author_name | author_profile |
+| ------ | ------------- | ------- | --------- | ----------- | -------------- |
+| MySQL  | MySQL is ...  | 2011    | 1         | kim         | developer      |
+| ORACLE | ORACLE is ... | 2012    | 1         | kim         | developer      |
+
+topic_type table
+
+| title  | price |
+| ------ | ----- |
+| MySQL  | 10000 |
+| MySQL  | 0     |
+| ORACLE | 0     |
+
+topic_tag_relation table
+
+| topic_title | tag_id |
+| ----------- | ------ |
+| MySQL       | 1      |
+| MySQL       | 2      |
+| ORACLE      | 1      |
+| ORACLE      | 3      |
+
+tag table
+
+| id  | name       |
+| --- | ---------- |
+| 1   | rdb        |
+| 2   | free       |
+| 3   | commercial |
+
+**Third normal form**
+
+author table
+
+| id  | author_name | author_profile |
+| --- | ----------- | -------------- |
+| 1   | kim         | developer      |
+
+topic table
+
+| title  | description   | created | author_id |
+| ------ | ------------- | ------- | --------- |
+| MySQL  | MySQL is ...  | 2011    | 1         |
+| ORACLE | ORACLE is ... | 2012    | 1         |
+
+topic_type table
+
+| title  | price |
+| ------ | ----- |
+| MySQL  | 10000 |
+| MySQL  | 0     |
+| ORACLE | 0     |
+
+topic_tag_relation table
+
+| topic_title | tag_id |
+| ----------- | ------ |
+| MySQL       | 1      |
+| MySQL       | 2      |
+| ORACLE      | 1      |
+| ORACLE      | 3      |
+
+tag table
+
+| id  | name       |
+| --- | ---------- |
+| 1   | rdb        |
+| 2   | free       |
+| 3   | commercial |
