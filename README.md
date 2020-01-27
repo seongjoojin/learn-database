@@ -864,11 +864,11 @@ https://github.com/vuerd
 - 부모테이블 : 다른 테이블에 의존하지 않는 테이블
 - 자식테이블 : 부모테이블에 의존하는 테이블
 
-![일대일_관계의_처리.png](./논리적_데이터_모델링/일대일_관계의_처리.png)
+![일대일_관계의_처리.png](./논리적_데이터_모델링/일대일_관계의_처리.png)
 
 #### 1:N 관계의 처리
 
-![일대다_관계의_처리.png](./논리적_데이터_모델링/일대다_관계의_처리.png)
+![일대다_관계의_처리.png](./논리적_데이터_모델링/일대다_관계의_처리.png)
 
 #### N:M 관계의 처리
 
@@ -876,7 +876,7 @@ https://github.com/vuerd
 
 #### N:M 관계의 처리 - 내용 정정
 
-![다대다_관계의_처리.png](./논리적_데이터_모델링/다대다_관계의_처리.png)
+![다대다_관계의_처리.png](./논리적_데이터_모델링/다대다_관계의_처리.png)
 
 ### 논리적 데이터 모델링 2 - 정규화
 
@@ -1312,3 +1312,78 @@ topic_description table
 ###### 테이블의 역정규화 - 행을 기준으로 테이블 분리
 
 - 서버마다 서로 다른 표를 저장하고 서로 다른 조회를 처리함 예) 1000행씩 자르기
+
+##### 역정규화 : 관계의 역정규화
+
+- 목표 : 저자의 태그 아이디와 태그명을 조회한다.
+- FK를 추가하여 JOIN을 줄이는 테크닉
+
+**정규화 전**
+
+topic table
+
+| title  | description   | created | author_id |
+| ------ | ------------- | ------- | --------- |
+| MySQL  | MySQL is ...  | 2011    | 1         |
+| ORACLE | ORACLE is ... | 2012    | 1         |
+
+topic_type table
+
+| title  | price |
+| ------ | ----- |
+| MySQL  | 10000 |
+| MySQL  | 0     |
+| ORACLE | 0     |
+
+topic_tag_relation table
+
+| topic_title | tag_id |
+| ----------- | ------ |
+| MySQL       | 1      |
+| MySQL       | 2      |
+| ORACLE      | 1      |
+| ORACLE      | 3      |
+
+tag table
+
+| id  | name       |
+| --- | ---------- |
+| 1   | rdb        |
+| 2   | free       |
+| 3   | commercial |
+
+정규화 하기전의 쿼리
+
+```sql
+SELECT tag.id, tag.name FROM topic_tag_relation AS TTR LEFT JOIN tag ON TTR.tag_id = tag.id LEFT JOIN topic ON TTR.topic_title = topic.title WHERE author_id = 1;
+```
+
+역 정규화 쿼리
+
+```sql
+ALTER TABLE `topic_tag_relation` ADD COLUMN `author_id` INT NULL AFTER `tag_name`;
+UPDATE `topic_tag_relation` SET `author_id` = '1' WHERE (`topic_title` = 'MySQL') and (`tag_id` = '1');
+UPDATE `topic_tag_relation` SET `author_id` = '1' WHERE (`topic_title` = 'MySQL') and (`tag_id` = '2');
+UPDATE `topic_tag_relation` SET `author_id` = '1' WHERE (`topic_title` = 'ORACLE') and (`tag_id` = '1');
+UPDATE `topic_tag_relation` SET `author_id` = '1' WHERE (`topic_title` = 'ORACLE') and (`tag_id` = '3');
+```
+
+topic_tag_relation table
+
+| topic_title | tag_id | author_id |
+| ----------- | ------ | --------- |
+| MySQL       | 1      | 1         |
+| MySQL       | 2      | 1         |
+| ORACLE      | 1      | 1         |
+| ORACLE      | 3      | 1         |
+
+정규화 한 후의 쿼리
+
+```sql
+SELECT
+    tag.id, tag.name
+FROM
+    topic_tag_relation AS TTR
+LEFT JOIN tag ON TTR.tag_id = tag.id
+WHERE TTR.author_id = 1;
+```
