@@ -739,13 +739,13 @@ $ explain SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid;
 
 - 분해 => 데이터베이스 모델링, 정규화 (normalization)
 
-### 관계형 데이터 모델링
+## 관계형 데이터 모델링
 
 - Model : 어떤 **목적**을 가지고 **진짜**를 **모방**한 것
 - 목표는 표에 정보를 담는 것
 - DATA MODELING => 복잡한 현실을 컴퓨터로 이사시키는 이삿짐 센터?!
 
-#### 데이터 모델링의 순서
+### 데이터 모델링의 순서
 
 - 업무 파악 => 개념적 데이터 모델링 => 논리적 데이터 모델링 => 물리적 데이터 모델링
 - 업무파악 : 의뢰한 사람이 어떤 것을 꿈꾸고 있는가(기획서)
@@ -753,16 +753,16 @@ $ explain SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.aid;
 - 논리적 데이터 모델링 : 생각했던 개념을 표로 전환하는 작업
 - 물리적 데이터 모델링 : 어떤 데이터베이스 제품을 사용하는가를 선택하고 데이터베이스 제품에 최적화된 코드를 작성하고 실제표를 생성 (SQL 코드)
 
-#### 업무파악
+### 업무파악
 
 - 컴퓨터 공학이 해결하는 문제 두가지 : 컴퓨터 자체의 문제를 해결하는 것, 현실의 문제를 해결하는 것
 - 업무파악 할 때 많이 사용하는 방법 => UI를 같이 그려보는 것
 
 https://ovenapp.io/view/EuTjedDvHdhBQLoxthGrqvBlGp1jBJj6/XDCP1
 
-#### 개념적 데이터 모델링 1
+### 개념적 데이터 모델링 1
 
-##### 개념적 데이터 모델링 소개
+#### 개념적 데이터 모델링 소개
 
 - 필터 : 현실에서 개념을 추출
 - 언어 : 개념에 대해서 다른 사람과 대화하게 해줌
@@ -770,13 +770,13 @@ https://ovenapp.io/view/EuTjedDvHdhBQLoxthGrqvBlGp1jBJj6/XDCP1
 - ERD (Entity Relationship Diagram) : 이러한 목적을 이루게 해주는 도구
 - ERD가 가져다 주는 것 : 정보(발견하고 표현), 그룹(연관된 정보를 그룹핑), 관계(그룹사이의 관계를 인식)
 
-##### 관계형 데이터베이스 다운 개념의 구조
+#### 관계형 데이터베이스 다운 개념의 구조
 
 - 서로 연관된 정보를 묶어주는 큰 덩어리부터 끄집어 내야함(글, 저자, 댓글)
 - RDB에서는 내포관계를 허용하지 않음, 거대 단일 테이블로 표현하면 중복이 발생 => 주제(덩어리)를 표로 각각 나워야함
 - 표를 각각 나누는 장점 : 주제에 따라서 데이터를 그룹핑 할 수 있음, 컴퓨터의 자원을 아낄 수 있음(만약 저자에 대한 정보를 조회시에는 저자에 대한 테이블만 조회하면 됨), JOIN(필요한 정보를 JOIN을 통해서 조회가능함)
 
-##### ERD의 구성요소
+#### ERD의 구성요소
 
 - Entity(찾아낸 개념들 => 글, 저자, 댓글 등) => Table로 전환됨
 - Attribute(구체적인 데이터 => 글 안의 생성일, 제목, 본문 등) => Column로 전환됨
@@ -784,7 +784,7 @@ https://ovenapp.io/view/EuTjedDvHdhBQLoxthGrqvBlGp1jBJj6/XDCP1
 
 - Tuple은 Row로 전환됨
 
-##### 엔티티 정의
+#### 엔티티 정의
 
 - 어플리케이션이 건축물이라면 옥상은 UI(User Interface)고 지하는 Database임
 - UI과 Database는 서로 원인과 결과 관계로 연결되어 있음
@@ -792,15 +792,15 @@ https://ovenapp.io/view/EuTjedDvHdhBQLoxthGrqvBlGp1jBJj6/XDCP1
 
 https://www.draw.io
 
-#### 개념적 데이터 모델링 2
+### 개념적 데이터 모델링 2
 
-##### 속성 정의
+#### 속성 정의
 
 - 속성은 ERD에서 사각형으로 표현함
 
 ![속성 정의.png](./관계형_데이터_모델링/속성_정의.png)
 
-##### 식별자 지정
+#### 식별자 지정
 
 - 식별자가 될 수 있는 후보키(candidate key)를 고름
 - 후보키 중에 식별자를 고르면 그것이 기본키(primary key)가 됨
@@ -811,13 +811,13 @@ https://www.draw.io
 
 ![식별자 정의.png](./관계형_데이터_모델링/식별자_지정.png)
 
-##### 엔티티간의 연결
+#### 엔티티간의 연결
 
 - ERD에서는 Relationship을 마름모로 나타냄
 
 ![엔티티간의 연결.png](./관계형_데이터_모델링/엔티티간의_연결.png)
 
-##### Cardinality
+#### Cardinality
 
 1. 1:1 관계
 2. 1:N(일대다) 관계
@@ -825,31 +825,31 @@ https://www.draw.io
 
 ![Cardinality.png](./관계형_데이터_모델링/Cardinality.png)
 
-##### Optionality
+#### Optionality
 
 - 예) 저는 댓글을 작성하지 않을 수도 있다 => 저자에게 댓글은 Optionality (ERD에서는 동그라미로 표시)
 - Optionality의 반대로 꼭 필요한 속성은 Mandatory로 표현함 (ERD에서는 세로 작대기 하나로 표시)
 
 ![Optionality.png](./관계형_데이터_모델링/Optionality.png)
 
-##### ERD 완성
+#### ERD 완성
 
 - ERD 기호 같은 경우는 속한 그룹마다 규칙이 다르므로 속한 그룹의 규칙을 따라가면 됨
 
 ![ERD 완성.png](./관계형_데이터_모델링/ERD_완성.png)
 
-##### Entity Relationship Diagram Helper
+#### Entity Relationship Diagram Helper
 
 http://erd.yah.ac
 
-#### 논리적 데이터 모델링 1
+### 논리적 데이터 모델링 1
 
-##### 논리적 데이터 모델링
+#### 논리적 데이터 모델링
 
 - 개념적 데이터 모델링이 업무에서 개념을 뽑아내는 일이라면 논리적 데이터 모델링은 뽑아낸 개념을 관계형 데이터베이스 페러다임에 어울리게 데이터 형식을 정리정돈 하는 것
 - Mapping Rule : ERD를 통해서 표현한 내용을 관계형 데이터베이스에 맞는 형식으로 전환할때 사용하는 방법론
 
-##### 테이블과 컬럼 생성
+#### 테이블과 컬럼 생성
 
 ermaster => 고잉님 추천
 
@@ -859,35 +859,35 @@ https://github.com/vuerd
 
 ![테이블과 컬럼 생성.png](./논리적_데이터_모델링/테이블과_컬럼_생성.png)
 
-##### 1:1 관계의 처리
+#### 1:1 관계의 처리
 
 - 부모테이블 : 다른 테이블에 의존하지 않는 테이블
 - 자식테이블 : 부모테이블에 의존하는 테이블
 
 ![일대일_관계의_처리.png](./논리적_데이터_모델링/일대일_관계의_처리.png)
 
-##### 1:N 관계의 처리
+#### 1:N 관계의 처리
 
 ![일대다_관계의_처리.png](./논리적_데이터_모델링/일대다_관계의_처리.png)
 
-##### N:M 관계의 처리
+#### N:M 관계의 처리
 
 - Mapping Table이 필요함(두 속성 사이에 새로운 테이블이 생성)
 
-##### N:M 관계의 처리 - 내용 정정
+#### N:M 관계의 처리 - 내용 정정
 
 ![다대다_관계의_처리.png](./논리적_데이터_모델링/다대다_관계의_처리.png)
 
-#### 논리적 데이터 모델링 2 - 정규화
+### 논리적 데이터 모델링 2 - 정규화
 
-##### 정규화 소개
+#### 정규화 소개
 
 - Normalization : 정제되지 않은 데이터(표)를 관계형 데이터베이스에 어울리는 표로 만들어주는 레시피
 - https://en.wikipedia.org/wiki/Database_normalization
 - 3NF(https://en.wikipedia.org/wiki/Third_normal_form) => 산업적으로 주로 많이 사용됨
 - http://bit.ly/2wV2SFj
 
-##### 제1 정규화
+#### 제1 정규화
 
 - First Normal Form (Atomic columns)
 - 각각의 컬럼의 값이 하나 이상이라면 (atomic) 해소 되어야 할 상태 => 해소하면 제1 정규화형을 만족시키는 테이블
@@ -931,7 +931,7 @@ tag table
 | 2   | free       |
 | 3   | commercial |
 
-##### 제2 정규화
+#### 제2 정규화
 
 - Sencond Normal Form(No partial dependencies) => 부분 종속성 제거
 - 부분적으로 종속적인 컬럼을 모으고 전체적으로 종속적인 컬럼을 쪼개는 것
@@ -997,7 +997,7 @@ tag table
 | 2   | free       |
 | 3   | commercial |
 
-##### 제3 정규화
+#### 제3 정규화
 
 - Third Normal Form (No transitive dependencies) => 이행적 종속성을 가지고 있다면 그것을 분리해야함
 
@@ -1074,3 +1074,201 @@ tag table
 | 1   | rdb        |
 | 2   | free       |
 | 3   | commercial |
+
+### 물리적 데이터 모델링
+
+#### 물리적 데이터 모델링
+
+- 논리적 데이터 모델링 : 이상적인 표를 만드는 것
+- 물리적 데이터 모델링 : 이상적인 표를 구체적이고 제품에 맞는 현실적인 표로 만드는 과정
+
+어떻게 성능을 향상시킬 수 있는가?
+
+- just do it (일단 운영해보기) => 쿼리 평가, 병목 발생 지점 확인하여 해결
+- find slow query => 늘려지는 query 찾기 (제품군마다 다름)
+
+성능 향상 방법
+
+- denormalization(역정규화, 반정규화) => 최후의 방법
+- index => 행에 대한 읽기속도는 비약적으로 빨라지나 쓰기속도를 희생시킴
+- application => 캐시 (입력에 따른 실행결과를 저장하고 동일한 입력시 저장한 결과를 내놓음)를 사용하여 데이터베이스의 부하를 줄임
+
+#### 역정규화 소개
+
+- 역정규화 : 정규화로 만든 이상적인 표를 성능이나 개발의 편의성을 위해서 조작하는 것이 구조를 바꾸는 것
+- 정규화 : 쓰기의 편리함을 위해서 읽기의 성능을 희생하는 것
+
+- 정규화를 하게 되면 표를 여러개로 쪼개지고 쪼개진 표들을 다시 사용할때는 join를 통해서 해야함 join은 비싼 작업이기 때문에 읽기의 성능이 희생됨
+- 어플리케이션은 읽기가 굉장히 자주 일어남 그래서 정규화 때문에 느려지는 경우가 종종 일어남 => 여러가지 방법을 먼저 해보고 최후의 수단으로 역정규화(표의 구조를 다시 바꾸는 작업)을 하게 됨
+
+- 정규화를 한다고 무조건 성능이 떨어지는 것은 아님 => 일반화하지 않는게 좋음
+
+http://bit.ly/2WLMCko
+
+```sql
+DROP TABLE IF EXISTS `author`;
+CREATE TABLE `author` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `profile` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `author` VALUES (1,'kim','developer'),(2,'lee','DBA');
+
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE `tag` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `tag` VALUES (1,'rdb'),(2,'free'),(3,'commercial');
+
+DROP TABLE IF EXISTS `topic`;
+CREATE TABLE `topic` (
+  `title` varchar(50) NOT NULL,
+  `description` text,
+  `created` datetime DEFAULT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`title`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `topic` VALUES ('MySQL','MySQL is ...','2011-01-01 00:00:00',1),('ORACLE','ORACLE is ...','2012-02-03 00:00:00',1),('SQL Server','SQL Server is ..','2013-01-04 00:00:00',2);
+DROP TABLE IF EXISTS `topic_tag_relation`;
+
+CREATE TABLE `topic_tag_relation` (
+  `topic_title` varchar(50) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  PRIMARY KEY (`topic_title`,`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `topic_tag_relation` VALUES ('MySQL',1),('MySQL',2),('ORACLE',1),('ORACLE',3);
+
+DROP TABLE IF EXISTS `topic_type`;
+CREATE TABLE `topic_type` (
+  `title` varchar(45) NOT NULL,
+  `type` char(6) NOT NULL,
+  `price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`title`,`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `topic_type` VALUES ('MySQL','online',0),('MySQL','paper',10000),('ORACLE','online',15000);
+```
+
+역정규화의 사례
+
+- 컬럼의 역정규화 : 파생 컬럼의 형성 => 계산작업을 줄이기
+- 테이블의 역정규화 : 컬럼을 기준으로 테이블을 분리 => 컬럼을 변경
+- 테이블의 역정규화 : 행을 기준으로 테이블을 분리 => 하나의 표를 여러개의 표로 쪼개는 것
+- 관계의 역정규화 : 지름길을 만든다 => 테이블 사이의 관계성을 조작해서 일종의 지름길을 만듬
+
+##### 역정규화 : 컬럼을 조작해서 join을 줄이기
+
+- 목표 : topic_tag_relation.topic_title 의 값이 MySQL 인 태그의 이름을 알고 싶다.
+
+**역정규화 전**
+
+topic_tag_relation table
+
+| topic_title | tag_id |
+| ----------- | ------ |
+| MySQL       | 1      |
+| MySQL       | 2      |
+| ORACLE      | 1      |
+| ORACLE      | 3      |
+
+tag table
+
+| id  | name       |
+| --- | ---------- |
+| 1   | rdb        |
+| 2   | free       |
+| 3   | commercial |
+
+정규화 하기전의 쿼리
+
+```sql
+SELECT tag.name FROM topic_tag_relation AS TTR LEFT JOIN tag ON TTR.tag_id = tag.id WHERE topic_title = 'MySQL';
+```
+
+테이블 변경 쿼리
+
+```sql
+ALTER TABLE `topic_tag_relation` ADD COLUMN `tag_name` VARCHAR(45) NULL AFTER `tag_id`;
+
+UPDATE `topic_tag_relation` SET `tag_name` = 'rdb' WHERE (`topic_title` = 'MySQL') and (`tag_id` = '1');
+UPDATE `topic_tag_relation` SET `tag_name` = 'free' WHERE (`topic_title` = 'MySQL') and (`tag_id` = '2');
+UPDATE `topic_tag_relation` SET `tag_name` = 'rdb' WHERE (`topic_title` = 'ORACLE') and (`tag_id` = '1');
+UPDATE `topic_tag_relation` SET `tag_name` = 'commercial' WHERE (`topic_title` = 'ORACLE') and (`tag_id` = '3');
+```
+
+**역정규화 후**
+
+topic_tag_relation table
+
+| topic_title | tag_id | name       |
+| ----------- | ------ | ---------- |
+| MySQL       | 1      | rdb        |
+| MySQL       | 2      | free       |
+| ORACLE      | 1      | rdb        |
+| ORACLE      | 3      | commercial |
+
+정규화 후의 쿼리
+
+```sql
+SELECT tag_name FROM topic_tag_relation WHERE topic_title = 'MySQL';
+```
+
+- 역정규화 후 정규화하기전의 문제를 가지게됨 => 데이터의 중복
+- 역정규화 후 시스템의 복잡도가 증가되고 프로그램이 고장나기 쉬워짐. 그럼에도 역정규화 하는 것은 성능을 위해서임
+
+##### 역정규화 : 컬럼을 조작해서 계산을 줄이기
+
+- 목표 : 각각의 저자가 몇개의 글을 작성했는지를 목록으로 표현한다.
+
+**역정규화 전**
+
+author table
+
+| id  | author_name | author_profile |
+| --- | ----------- | -------------- |
+| 1   | kim         | developer      |
+| 2   | lee         | dba            |
+
+topic table
+
+| title      | description    | created | author_id |
+| ---------- | -------------- | ------- | --------- |
+| MySQL      | MySQL is ...   | 2011    | 1         |
+| ORACLE     | ORACLE is ...  | 2012    | 1         |
+| SQL SERVER | SQL SERVER ... | 2013    | 2         |
+
+정규화 하기전의 쿼리
+
+```sql
+SELECT author_id,COUNT(author_id) FROM opentutorial.topic GROUP BY author_id;
+```
+
+테이블 변경 쿼리
+
+```sql
+ALTER TABLE `author` ADD COLUMN `topic_count` INT NULL AFTER `profile`;
+UPDATE `author` SET `topic_count` = '2' WHERE (`id` = '1');
+UPDATE `author` SET `topic_count` = '1' WHERE (`id` = '2');
+```
+
+**역정규화 후**
+
+author table
+
+| id  | author_name | author_profile | topic_count |
+| --- | ----------- | -------------- | ----------- |
+| 1   | kim         | developer      | 2           |
+| 2   | lee         | dba            | 1           |
+
+정규화 후 쿼리
+
+```sql
+SELECT id, topic_count FROM author;
+```
