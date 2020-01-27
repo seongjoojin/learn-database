@@ -1272,3 +1272,43 @@ author table
 ```sql
 SELECT id, topic_count FROM author;
 ```
+
+##### 역정규화 : 표를 쪼개기
+
+###### 테이블의 역정규화 - 컬럼을 기준으로 테이블을 분리
+
+**역정규화 전**
+
+topic table
+
+| title      | description    | created | author_id |
+| ---------- | -------------- | ------- | --------- |
+| MySQL      | MySQL is ...   | 2011    | 1         |
+| ORACLE     | ORACLE is ...  | 2012    | 1         |
+| SQL SERVER | SQL SERVER ... | 2013    | 2         |
+
+**역정규화 후**
+
+topic table
+
+| title      | created | author_id |
+| ---------- | ------- | --------- |
+| MySQL      | 2011    | 1         |
+| ORACLE     | 2012    | 1         |
+| SQL SERVER | 2013    | 2         |
+
+topic_description table
+
+| title      | description    |
+| ---------- | -------------- |
+| MySQL      | MySQL is ...   |
+| ORACLE     | ORACLE is ...  |
+| SQL SERVER | SQL SERVER ... |
+
+- 분리 후 많은 조회가 일어난다면 여러 대에 컴퓨터에 데이터베이스를 저장하여 처리
+- 이러한 작업을 Database Sharding(샤딩)이라고 함
+- Database Sharding은 어렵고 유지하기 어려움 => 최후의 수단으로 사용해야함
+
+###### 테이블의 역정규화 - 행을 기준으로 테이블 분리
+
+- 서버마다 서로 다른 표를 저장하고 서로 다른 조회를 처리함 예) 1000행씩 자르기
